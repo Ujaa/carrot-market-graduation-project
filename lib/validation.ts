@@ -27,7 +27,7 @@ const checkPasswordIsRight = async ({ email, password }: LoginData) => {
   return await bcrypt.compare(password, user!.password);
 };
 
-const checkEmailExists = async (email: string) => {
+const checkEmailExists = async (email: string, ctx: z.RefinementCtx) => {
   const user = await db.user.findUnique({
     where: {
       email,
@@ -37,7 +37,16 @@ const checkEmailExists = async (email: string) => {
     },
   });
 
-  return Boolean(user);
+  if (!user) {
+    ctx.addIssue({
+      code: "custom",
+      message: ErrorMessages.EMAIL_NOT_EXIST_ERROR,
+      path: ["email"],
+      fatal: true,
+    });
+
+    return z.NEVER;
+  }
 };
 
 const checkUniqueEmail = async (email: string) => {
@@ -108,10 +117,7 @@ export const createAccountFormSchema = z
 
 export const loginFormSchema = z
   .object({
-    email: emailDefaultSchema.refine(
-      checkEmailExists,
-      ErrorMessages.EMAIL_NOT_EXIST_ERROR
-    ),
+    email: emailDefaultSchema.superRefine(checkEmailExists),
     password: passwordDefaultSchema,
   })
   .refine(checkPasswordIsRight, {
