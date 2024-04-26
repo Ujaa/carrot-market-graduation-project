@@ -3,27 +3,70 @@ import {
   ErrorMessages,
   PASSWORD_MIN_LENGTH,
   PASSWORD_REGEX,
+  USERNAME_MAX_LENGTH,
+  USERNAME_MIN_LENGTH,
 } from "./constants";
+import db from "./db";
 
-const emailSchema = z
+const checkUniqueEmail = async (email: string) => {
+  const user = await db.user.findUnique({
+    where: {
+      email,
+    },
+    select: {
+      id: true,
+    },
+  });
+
+  return !Boolean(user);
+};
+
+const checkUniqueUsername = async (username: string) => {
+  const user = await db.user.findUnique({
+    where: {
+      username,
+    },
+    select: {
+      id: true,
+    },
+  });
+
+  return !Boolean(user);
+};
+
+const usernameSchema = z
   .string({
-    invalid_type_error: ErrorMessages.EMAIL_UNVALID_ERROR,
+    required_error: ErrorMessages.USERNAME_REQUIRED_ERROR,
+  })
+  .trim()
+  .min(USERNAME_MIN_LENGTH, ErrorMessages.USERNAME_MIN_LENGTH_ERROR)
+  .max(USERNAME_MAX_LENGTH, ErrorMessages.USERNAME_MAX_LENGTH_ERROR)
+  .toLowerCase()
+  .refine(checkUniqueUsername, ErrorMessages.USERNAME_UNIQUE_ERROR);
+
+const emailDefaultSchema = z
+  .string({
     required_error: ErrorMessages.EMAIL_REQUIRED_ERROR,
   })
-  .email();
+  .email(ErrorMessages.EMAIL_INVALID_FORMAT_ERROR);
 
-const passwordSchema = z
+const passwordDefaultSchema = z
   .string({
     required_error: ErrorMessages.PASSWORD_REQUIRED_ERROR,
   })
   .trim()
-  .min(PASSWORD_MIN_LENGTH, ErrorMessages.PASSWORD_MIN_LENGTH_ERROR)
-  .regex(PASSWORD_REGEX, ErrorMessages.PASSWORD_REGEX_ERROR);
+  .min(PASSWORD_MIN_LENGTH, ErrorMessages.PASSWORD_MIN_LENGTH_ERROR);
 
 export const createAccountFormSchema = z
   .object({
-    email: emailSchema,
-    password: passwordSchema,
+    email: emailDefaultSchema.refine(
+      checkUniqueEmail,
+      ErrorMessages.EMAIL_UNIQUE_ERROR
+    ),
+    password: passwordDefaultSchema.regex(
+      PASSWORD_REGEX,
+      ErrorMessages.PASSWORD_REGEX_ERROR
+    ),
     confirmPassword: z.string().trim(),
   })
   .refine(({ password, confirmPassword }) => password === confirmPassword, {
@@ -32,6 +75,6 @@ export const createAccountFormSchema = z
   });
 
 export const loginFormSchema = z.object({
-  email: emailSchema,
-  password: passwordSchema,
+  email: emailDefaultSchema,
+  password: passwordDefaultSchema,
 });
