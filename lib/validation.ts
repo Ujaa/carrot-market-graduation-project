@@ -6,7 +6,39 @@ import {
   USERNAME_MAX_LENGTH,
   USERNAME_MIN_LENGTH,
 } from "./constants";
+import bcrypt from "bcrypt";
 import db from "./db";
+
+interface LoginData {
+  email: string;
+  password: string;
+}
+
+const checkPasswordIsRight = async ({ email, password }: LoginData) => {
+  const user = await db.user.findUnique({
+    where: {
+      email,
+    },
+    select: {
+      password: true,
+    },
+  });
+
+  return await bcrypt.compare(password, user!.password);
+};
+
+const checkEmailExists = async (email: string) => {
+  const user = await db.user.findUnique({
+    where: {
+      email,
+    },
+    select: {
+      id: true,
+    },
+  });
+
+  return Boolean(user);
+};
 
 const checkUniqueEmail = async (email: string) => {
   const user = await db.user.findUnique({
@@ -74,7 +106,15 @@ export const createAccountFormSchema = z
     path: ["confirmPassword"],
   });
 
-export const loginFormSchema = z.object({
-  email: emailDefaultSchema,
-  password: passwordDefaultSchema,
-});
+export const loginFormSchema = z
+  .object({
+    email: emailDefaultSchema.refine(
+      checkEmailExists,
+      ErrorMessages.EMAIL_NOT_EXIST_ERROR
+    ),
+    password: passwordDefaultSchema,
+  })
+  .refine(checkPasswordIsRight, {
+    message: ErrorMessages.PASSWORD_WRONG_ERROR,
+    path: ["password"],
+  });
