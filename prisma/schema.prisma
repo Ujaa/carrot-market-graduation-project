@@ -13,3 +13,32 @@ datasource db {
   url       = env("POSTGRES_PRISMA_URL") // uses connection pooling
   directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
 }
+
+enum BodyShape {
+  TRIANGLE
+  OVAL
+  RECTANGLE
+  SQUARE
+  DROP
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  email     String   @unique
+  password  String
+  profile   Profile?
+}
+
+model Profile {
+  id        Int       @id @default(autoincrement())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  username  String?   @unique
+  bodyShape BodyShape
+  bodyColor String
+  eyeColor  String
+  user      User      @relation(fields: [userId], references: [id])
+  userId    Int       @unique
+}

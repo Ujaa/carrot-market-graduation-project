@@ -1,6 +1,8 @@
 "use server";
 
+import db from "@/lib/db";
 import { createAccountFormSchema } from "@/lib/validation";
+import bcrypt from "bcrypt";
 
 export async function createAccount(prevState: any, formData: FormData) {
   const data = {
@@ -9,11 +11,24 @@ export async function createAccount(prevState: any, formData: FormData) {
     confirmPassword: formData.get("confirmPassword"),
   };
 
-  const result = createAccountFormSchema.safeParse(data);
+  const result = await createAccountFormSchema.safeParseAsync(data);
 
   if (!result.success) {
     return result.error.flatten();
   } else {
-    console.log(result.data);
+    const hashedPassword = await bcrypt.hash(result.data.password, 8);
+    const user = await db.user.create({
+      data: {
+        email: result.data.email,
+        password: hashedPassword,
+      },
+      select: {
+        id: true,
+      },
+    });
+
+    // log the user in
+
+    // redirect "/create-account"
   }
 }

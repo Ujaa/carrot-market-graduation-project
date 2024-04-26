@@ -19,20 +19,21 @@ export const PASSWORD_REGEX = new RegExp(
  */
 
 export class ErrorMessages {
-  static USERNAME_REQUIRED_ERROR = "닉네임을 입력해 주세요";
-  static USERNAME_MIN_LENGTH_ERROR = `닉네임은 ${USERNAME_MIN_LENGTH}글자 이상만 가능해요.`;
-  static USERNAME_MAX_LENGTH_ERROR = `닉네임은 ${USERNAME_MAX_LENGTH}글자 이하만 가능해요.`;
-  static USERNAME_UNIQUE_ERROR = "이미 존재하는 이름이에요.";
+  static USERNAME_REQUIRED_ERROR = "Please enter a username";
+  static USERNAME_MIN_LENGTH_ERROR = `Username must be at least ${USERNAME_MIN_LENGTH} characters long.`;
+  static USERNAME_MAX_LENGTH_ERROR = `Username must be no more than ${USERNAME_MAX_LENGTH} characters long.`;
+  static USERNAME_UNIQUE_ERROR = "Username already exists";
 
-  static EMAIL_REQUIRED_ERROR = "이메일을 입력해 주세요";
-  static EMAIL_UNVALID_ERROR = "유효하지 않은 이메일이에요.";
-  static EMAIL_UNIQUE_ERROR = "이미 존재하는 이메일이에요.";
-  static EMAIL_NOT_EXIST_ERROR = "존재하지 않는 이메일이에요.";
+  static EMAIL_REQUIRED_ERROR = "Please enter an email address";
+  static EMAIL_INVALID_FORMAT_ERROR = "Invalid email address format";
+  static EMAIL_UNIQUE_ERROR = "Email address already in use";
+  static EMAIL_NOT_EXIST_ERROR = "Email address does not exist";
 
-  static PASSWORD_REQUIRED_ERROR = "이메일을 입력해 주세요";
-  static PASSWORD_MIN_LENGTH_ERROR = "유효하지 않은 이메일이에요.";
-  static PASSWORD_REGEX_ERROR = "이미 존재하는 이메일이에요.";
-  static PASSWORD_CONFIRM_ERROR = "이미 존재하는 이메일이에요.";
+  static PASSWORD_REQUIRED_ERROR = "Please enter a password";
+  static PASSWORD_MIN_LENGTH_ERROR = `Password must be at least ${PASSWORD_MIN_LENGTH} characters long`;
+  static PASSWORD_REGEX_ERROR =
+    "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character";
+  static PASSWORD_CONFIRM_ERROR = "Passwords do not match";
 }
 
 /**
