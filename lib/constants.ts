@@ -33,7 +33,8 @@ export class ErrorMessages {
   static PASSWORD_MIN_LENGTH_ERROR = `Password must be at least ${PASSWORD_MIN_LENGTH} characters long`;
   static PASSWORD_REGEX_ERROR =
     "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character";
-  static PASSWORD_CONFIRM_ERROR = "Passwords do not match";
+  static PASSWORD_CONFIRM_ERROR = "Password do not match";
+  static PASSWORD_WRONG_ERROR = "Wrong password";
 }
 
 /**

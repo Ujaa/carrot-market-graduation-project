@@ -3,6 +3,7 @@
 import db from "@/lib/db";
 import { createAccountFormSchema } from "@/lib/validation";
 import bcrypt from "bcrypt";
+import { redirect } from "next/navigation";
 
 export async function createAccount(prevState: any, formData: FormData) {
   const data = {
@@ -11,7 +12,7 @@ export async function createAccount(prevState: any, formData: FormData) {
     confirmPassword: formData.get("confirmPassword"),
   };
 
-  const result = await createAccountFormSchema.safeParseAsync(data);
+  const result = await createAccountFormSchema.spa(data);
 
   if (!result.success) {
     return result.error.flatten();
@@ -27,8 +28,6 @@ export async function createAccount(prevState: any, formData: FormData) {
       },
     });
 
-    // log the user in
-
-    // redirect "/create-account"
+    redirect("/log-in");
   }
 }
