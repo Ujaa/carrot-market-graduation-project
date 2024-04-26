@@ -22,7 +22,7 @@ const checkUniqueEmail = async (email: string) => {
 };
 
 const checkUniqueUsername = async (username: string) => {
-  const user = await db.user.findUnique({
+  const user = await db.profile.findUnique({
     where: {
       username,
     },

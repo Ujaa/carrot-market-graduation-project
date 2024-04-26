@@ -35,7 +35,7 @@ model Profile {
   id        Int       @id @default(autoincrement())
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
-  username  String?   @unique
+  username  String   @unique
   bodyShape BodyShape
   bodyColor String
   eyeColor  String
