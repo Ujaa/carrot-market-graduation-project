@@ -4,10 +4,13 @@ import { IPost, postConverter } from "@/model/post";
 import { collection, getDocs, addDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { IPostsReponse } from "@/model/reponses";
+import { headers } from "next/headers";
 
 export default async function Home() {
+  const host = headers().get("host");
+  const protocol = process.env.NODE_ENV === "production" ? "https" : "http";
   const result: IPostsReponse = await (
-    await fetch(`https://${process.env.NEXT_PUBLIC_VERCEL_URL}/api/posts`)
+    await fetch(`${protocol}://${host}/api/posts`)
   ).json();
   console.log(result);
 
