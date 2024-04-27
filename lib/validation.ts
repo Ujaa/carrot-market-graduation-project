@@ -75,16 +75,6 @@ const checkUniqueUsername = async (username: string) => {
   return !Boolean(user);
 };
 
-const usernameSchema = z
-  .string({
-    required_error: ErrorMessages.USERNAME_REQUIRED_ERROR,
-  })
-  .trim()
-  .min(USERNAME_MIN_LENGTH, ErrorMessages.USERNAME_MIN_LENGTH_ERROR)
-  .max(USERNAME_MAX_LENGTH, ErrorMessages.USERNAME_MAX_LENGTH_ERROR)
-  .toLowerCase()
-  .refine(checkUniqueUsername, ErrorMessages.USERNAME_UNIQUE_ERROR);
-
 const emailDefaultSchema = z
   .string({
     required_error: ErrorMessages.EMAIL_REQUIRED_ERROR,
@@ -124,3 +114,13 @@ export const loginFormSchema = z
     message: ErrorMessages.PASSWORD_WRONG_ERROR,
     path: ["password"],
   });
+
+export const usernameSchema = z
+  .string({
+    required_error: ErrorMessages.USERNAME_REQUIRED_ERROR,
+  })
+  .trim()
+  .min(USERNAME_MIN_LENGTH, ErrorMessages.USERNAME_MIN_LENGTH_ERROR)
+  .max(USERNAME_MAX_LENGTH, ErrorMessages.USERNAME_MAX_LENGTH_ERROR)
+  .toLowerCase()
+  .refine(checkUniqueUsername, ErrorMessages.USERNAME_UNIQUE_ERROR);
