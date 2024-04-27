@@ -6,7 +6,9 @@ import { useEffect, useState } from "react";
 import { IPostsReponse } from "@/model/reponses";
 
 export default async function Home() {
-  const result: IPostsReponse = await (await fetch(`/api/posts`)).json();
+  const result: IPostsReponse = await (
+    await fetch(`${process.env.NEXT_PUBLIC_VERCEL_URL}/api/posts`)
+  ).json();
   console.log(result);
 
   return (
