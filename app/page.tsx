@@ -6,10 +6,8 @@ import { useEffect, useState } from "react";
 import { IPostsReponse } from "@/model/reponses";
 
 export default async function Home() {
-  /*
-  const result: IPostsReponse = await (
-    await fetch(`${process.env.API_URL}/api/posts`)
-  ).json();
+  const result: IPostsReponse = await (await fetch(`/api/posts`)).json();
+  console.log(result);
 
   return (
     <main className="">
@@ -19,6 +17,5 @@ export default async function Home() {
         ))}
       </ul>
     </main>
-  );*/
-  return <div></div>;
+  );
 }

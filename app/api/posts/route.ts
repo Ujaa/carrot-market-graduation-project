@@ -12,7 +12,7 @@ export async function GET(request: NextRequest) {
 
     const posts = docsSnap.docs.map((doc) => postConverter.fromFirestore(doc));
 
-    return NextResponse.json({ data: posts });
+    return NextResponse.json({ posts });
   } catch (error) {
     console.error("[ERROR] Error white fetching posts: ", error);
   }
