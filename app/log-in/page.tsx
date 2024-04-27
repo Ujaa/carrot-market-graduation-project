@@ -13,10 +13,13 @@ export default function LogIn() {
 
   return (
     <main className=" flex flex-col justify-center items-center">
-      <div className=" min-w-[32rem] h-screen flex flex-col items-center justify-center gap-16">
+      <div className="h-screen flex flex-col items-center justify-center gap-16">
         <MovingEyesFace />
-        <form action={dispatch} className="w-full  flex flex-col items-center">
-          <div className="flex flex-col items-center gap-3 mb-24">
+        <form
+          action={dispatch}
+          className="w-full flex flex-col items-center px-2"
+        >
+          <div className="w-full flex flex-col items-center gap-3 mb-24">
             <Input
               type="email"
               name="email"

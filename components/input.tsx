@@ -11,7 +11,7 @@ export default function Input({
   ...rest
 }: InputProps & InputHTMLAttributes<HTMLInputElement>) {
   return (
-    <>
+    <div className="w-[22rem]">
       <input
         className=" w-full text-2xl py-2 border-b-2 border-slate-200 bg-transparent
        text-darkblue 
@@ -21,10 +21,13 @@ export default function Input({
         {...rest}
       />
       {errors.map((error, index) => (
-        <p key={index} className="text-pink-400 font-medium">
+        <p
+          key={index}
+          className="w-full text-pink-400 font-medium text-sm mt-1"
+        >
           {error}
         </p>
       ))}
-    </>
+    </div>
   );
 }

@@ -1,4 +1,10 @@
 /**
+ * Collection Name
+ */
+
+export const COLLECTION_NAME_POSTS = "posts";
+
+/**
  * Constant Numbers
  */
 
@@ -20,8 +26,8 @@ export const PASSWORD_REGEX = new RegExp(
 
 export class ErrorMessages {
   static USERNAME_REQUIRED_ERROR = "Please enter a username";
-  static USERNAME_MIN_LENGTH_ERROR = `Username must be at least ${USERNAME_MIN_LENGTH} characters long.`;
-  static USERNAME_MAX_LENGTH_ERROR = `Username must be no more than ${USERNAME_MAX_LENGTH} characters long.`;
+  static USERNAME_MIN_LENGTH_ERROR = `Username must be at least ${USERNAME_MIN_LENGTH} characters`;
+  static USERNAME_MAX_LENGTH_ERROR = `The username should be limited to ${USERNAME_MAX_LENGTH} characters`;
   static USERNAME_UNIQUE_ERROR = "Username already exists";
 
   static EMAIL_REQUIRED_ERROR = "Please enter an email address";
