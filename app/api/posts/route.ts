@@ -50,3 +50,4 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ status: 500 });
   }
 }
+export const dynamic = "force-dynamic";
