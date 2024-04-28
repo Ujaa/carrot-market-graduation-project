@@ -20,6 +20,7 @@ export interface IComment {
 export interface ILike {
   id: string;
   userId: string;
+  username: string;
   avatar: IAvatar;
   createdAt: number;
 }
@@ -34,6 +35,7 @@ export const likeConverter = {
     const data = snapshot.data();
     return {
       id,
+      username: data.username,
       avatar: data.avatar,
       userId: data.userId,
       createdAt: data.createdAt,

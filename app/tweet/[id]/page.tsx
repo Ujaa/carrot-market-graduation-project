@@ -1,7 +1,7 @@
 import { Header } from "@/components/header";
 import { firestore } from "@/config/firebase/firebase";
 import getSession from "@/lib/session";
-import { ILikesReponse, IPostReponse } from "@/model/reponses";
+import { ILikesReponse, IPostReponse, IProfileReponse } from "@/model/reponses";
 import {
   collection,
   deleteDoc,
@@ -17,6 +17,7 @@ import { revalidatePath } from "next/cache";
 import { headers } from "next/headers";
 import heartFilled from "@/public/images/heart_filled.png";
 import heartUnfilled from "@/public/images/heart_unfilled.png";
+import Avatar from "@/components/avatar";
 
 interface PostDetailParams {
   params: {
@@ -45,7 +46,7 @@ export default async function PostDetail({ params: { id } }: PostDetailParams) {
 
   const likesCollectionRef = collection(firestore, `posts/${id}/likes`);
   const unsubscribe = onSnapshot(likesCollectionRef, (snapshot) => {
-    console.log("Likes data has changed:", snapshot.docs);
+    // console.log("Likes data has changed:", snapshot.docs);
   });
 
   const likesData: ILikesReponse = await (
@@ -57,12 +58,21 @@ export default async function PostDetail({ params: { id } }: PostDetailParams) {
   const likePost = async () => {
     "use server";
     const session = await getSession();
+    const host = headers().get("host");
+    const protocol = process.env.NODE_ENV === "production" ? "https" : "http";
+    const profile: IProfileReponse = await (
+      await fetch(`${protocol}://${host}/api/user/${session.id}`)
+    ).json();
+
+    console.log(profile);
     try {
       await setDoc(
         doc(firestore, `posts/${id}/likes`, session.id!.toString()),
         {
           userId: session.id,
           createdAt: Date.now(),
+          avatar: profile.profile.avatar,
+          username: profile.profile.username,
         }
       );
       revalidatePath(`/post/${id}`);
@@ -97,10 +107,18 @@ export default async function PostDetail({ params: { id } }: PostDetailParams) {
           {postData.post.content}
         </p>
 
-        <ul className="mt-4">
+        <ul className="mt-12 gap-2">
           {likesData.likes.map((like) => (
-            <li className="text-darkblue text-sm" key={like.id}>
-              The user with userId {like.userId} liked this post
+            <li className="flex flex-col items-center gap-2" key={like.id}>
+              <Avatar
+                bodyType={like.avatar.bodyType}
+                eyeType={like.avatar.eyeType}
+                eyeColor={like.avatar.eyeColor}
+                size={100}
+              />
+              <p className="text-darkblue text-sm font-medium">
+                {like.username}
+              </p>
             </li>
           ))}
         </ul>
