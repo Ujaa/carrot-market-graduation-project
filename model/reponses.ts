@@ -1,4 +1,4 @@
-import { IPostFireStore, IPostWithCommentsFireStore } from "./post";
+import { ILike, IPostFireStore, IPostWithCommentsFireStore } from "./post";
 import { IAvatar, IProfile } from "./profile";
 
 interface IPost {
@@ -18,6 +18,11 @@ export interface IPostsReponse {
 export interface IPostReponse {
   status: number;
   post: IPostWithCommentsFireStore;
+}
+
+export interface ILikesReponse {
+  status: number;
+  likes: ILike[];
 }
 
 export interface IProfileReponse {
