@@ -7,7 +7,7 @@ async function getUser() {
 
 export function Header() {
   return (
-    <header className="px-6 py-2 flex items-center justify-between fixed w-screen">
+    <header className="px-6 py-2 flex items-center justify-between w-screen z-10 bg-white bg-opacity-95 fixed">
       <Link href={"/"} className="text-base font-bold text-pink-500">
         PRAISEBOX
       </Link>

@@ -1,5 +1,6 @@
 import { z } from "zod";
 import {
+  COLLECTION_NAME_PROFILE,
   ErrorMessages,
   PASSWORD_MIN_LENGTH,
   PASSWORD_REGEX,
@@ -8,6 +9,8 @@ import {
 } from "./constants";
 import bcrypt from "bcrypt";
 import db from "./db";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import { firestore } from "@/config/firebase/firebase";
 
 interface LoginData {
   email: string;
@@ -63,16 +66,18 @@ const checkUniqueEmail = async (email: string) => {
 };
 
 const checkUniqueUsername = async (username: string) => {
-  const user = await db.profile.findUnique({
-    where: {
-      username,
-    },
-    select: {
-      id: true,
-    },
-  });
+  try {
+    const docsSnap = await getDocs(
+      query(
+        collection(firestore, COLLECTION_NAME_PROFILE),
+        where("username", "==", username)
+      )
+    );
 
-  return !Boolean(user);
+    return docsSnap.empty;
+  } catch (error) {
+    console.error("[ERROR] Error while checking username is unique: ", error);
+  }
 };
 
 const emailDefaultSchema = z

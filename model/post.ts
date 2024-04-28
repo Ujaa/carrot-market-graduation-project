@@ -1,6 +1,6 @@
 import { QueryDocumentSnapshot } from "firebase/firestore";
 
-export interface IPost {
+export interface IPostFireStore {
   id?: string;
   authorId: number;
   content: string;
@@ -9,7 +9,7 @@ export interface IPost {
 }
 
 export const postConverter = {
-  toFirestore: (post: IPost) => {
+  toFirestore: (post: IPostFireStore) => {
     return {
       authorId: post.authorId,
       content: post.content,
@@ -17,7 +17,7 @@ export const postConverter = {
       updatedAt: post.updatedAt,
     };
   },
-  fromFirestore: (snapshot: QueryDocumentSnapshot) => {
+  fromFirestore: (snapshot: QueryDocumentSnapshot): IPostFireStore => {
     const id = snapshot.id;
     const data = snapshot.data();
     return {

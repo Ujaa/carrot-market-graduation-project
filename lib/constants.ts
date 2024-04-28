@@ -3,6 +3,7 @@
  */
 
 export const COLLECTION_NAME_POSTS = "posts";
+export const COLLECTION_NAME_PROFILE = "profiles";
 
 /**
  * Constant Numbers
