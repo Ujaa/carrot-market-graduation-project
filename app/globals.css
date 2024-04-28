@@ -4,19 +4,29 @@
 
 :root {
   --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  --blue: #54adff;
+  --green: #14dd89;
+  --pink-300: #ffb3d7;
+  --pink-400: #ff72c6;
+  --pink-500: #f533a8;
+  --purple: #ef8aff;
 }
 
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-input:-webkit-autofill:active {
-  -webkit-text-fill-color: #1f2ade;
+@layer base {
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+    -webkit-text-fill-color: #1f2ade;
+  }
+
+  p::-webkit-scrollbar,
+  textarea::-webkit-scrollbar {
+    display: none;
+  }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
+@layer components {
 }
 
 @layer utilities {

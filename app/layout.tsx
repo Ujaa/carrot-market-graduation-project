@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Poppins } from "next/font/google";
+import { Poppins, Noto_Sans_KR } from "next/font/google";
 import "@/app/globals.css";
 
 const poppins = Poppins({
@@ -7,6 +7,17 @@ const poppins = Poppins({
   style: ["normal"],
   subsets: ["latin"],
 });
+
+const notoSans = Noto_Sans_KR({
+  weight: ["200", "300", "400", "500", "600"],
+  style: ["normal"],
+  subsets: ["latin"],
+  preload: false,
+});
+
+const cls = (...classnames: string[]) => {
+  return classnames.join(" ");
+};
 
 export const metadata: Metadata = {
   title: "Praise Box",
@@ -21,7 +32,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={poppins.className}>{children}</body>
+      <body className={cls(poppins.className, notoSans.className)}>
+        {children}
+      </body>
     </html>
   );
 }

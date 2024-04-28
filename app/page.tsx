@@ -1,25 +1,68 @@
-import { COLLECTION_NAME_POSTS } from "@/lib/constants";
-import { firestore } from "@/config/firebase/firebase";
-import { IPost, postConverter } from "@/model/post";
-import { collection, getDocs, addDoc } from "firebase/firestore";
-import { useEffect, useState } from "react";
-import { IPostsReponse } from "@/model/reponses";
+import { IPostsReponse, IProfileReponse } from "@/model/reponses";
 import { headers } from "next/headers";
+import Avatar from "@/components/avatar";
+import { Header } from "@/components/header";
+import getSession from "@/lib/session";
+import Input from "@/components/input";
+import FormButton from "@/components/form-button";
 
 export default async function Home() {
   const host = headers().get("host");
   const protocol = process.env.NODE_ENV === "production" ? "https" : "http";
-  const result: IPostsReponse = await (
+  const id = (await getSession()).id;
+
+  const profile: IProfileReponse = await (
+    await fetch(`${protocol}://${host}/api/user?id=${id}`)
+  ).json();
+  const posts: IPostsReponse = await (
     await fetch(`${protocol}://${host}/api/posts`)
   ).json();
-  console.log(result);
+
+  console.log(profile);
 
   return (
-    <main className="">
-      <ul>
-        {result.posts.map((post) => (
-          <li key={post.id}>{post.content}</li>
-        ))}
+    <main className="flex flex-col items-center m-auto px-5">
+      <Header />
+      <ul className="max-w-7xl grid gap-x-4 gap-y-28 py-40 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 ">
+        <form className="w-112 h-full flex flex-col items-center gap-4 ">
+          <textarea
+            className="w-full h-full text-2xl bg-slate-50 text-darkblue 
+              p-6 rounded-2xl overflow-y-scroll focus:outline-none placeholder:text-slate-400"
+            name="opinion"
+            form="myForm"
+            rows={6}
+            placeholder="Share your stories..."
+          ></textarea>
+          <FormButton text="Post"></FormButton>
+        </form>
+        {posts.posts.map((post) => {
+          return (
+            <li
+              key={post.id}
+              className="group relative flex flex-col items-center "
+            >
+              <p
+                className="opacity-0 invisible translate-y-[3rem] group-hover:translate-y-0 
+              group-hover:opacity-100 group-hover:visible text-2xl w-112 max-h-40
+              absolute bottom-72 break-words bg-slate-50 text-darkblue 
+              p-6 z-20 rounded-2xl transition-all text-ellipsis overflow-y-scroll "
+              >
+                {post.content}
+              </p>
+              <div className="peer w-96 h-96 flex flex-col gap-4 items-center justify-end">
+                <Avatar
+                  bodyType={post.profile.avatar.bodyType}
+                  eyeType={post.profile.avatar.eyeType}
+                  eyeColor={post.profile.avatar.eyeColor}
+                  size={200}
+                />
+                <p className="text-lg text-slate-500">
+                  {post.profile.username}
+                </p>
+              </div>
+            </li>
+          );
+        })}
       </ul>
     </main>
   );
