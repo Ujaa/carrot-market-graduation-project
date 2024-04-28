@@ -7,33 +7,18 @@ import getSession from "./lib/session";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { firestore } from "./config/firebase/firebase";
 
-async function hasProfile(id: number) {
-  try {
-    console.log("여깄습니다!!");
-    const docsSnap = await getDocs(
-      query(
-        collection(firestore, COLLECTION_NAME_PROFILE),
-        where("userId", "==", id)
-      )
-    );
-    console.log(docsSnap.empty);
-    return docsSnap.empty;
-  } catch (error) {
-    console.error("[ERROR] Error while checking username is unique: ", error);
-  }
-}
-
 export async function middleware(request: NextRequest) {
+  console.log(request.nextUrl.pathname);
   if (
-    request.nextUrl.pathname !== "/create-account" &&
-    request.nextUrl.pathname !== "/log-in"
+    request.nextUrl.pathname === "/" ||
+    request.nextUrl.pathname === "/create-profile" ||
+    request.nextUrl.pathname === "/profile" ||
+    request.nextUrl.pathname.includes("/tweet")
   ) {
     const session = await getSession();
     const id = session.id;
     if (!id) {
       return Response.redirect(new URL("/log-in", request.url));
-    } else {
-      console.log("아 미들웨어에서 firestore 못 쓰는 거였냐고~~!!");
     }
   }
 

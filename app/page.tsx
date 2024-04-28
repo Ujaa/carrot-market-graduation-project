@@ -11,16 +11,10 @@ import Link from "next/link";
 export default async function Home() {
   const host = headers().get("host");
   const protocol = process.env.NODE_ENV === "production" ? "https" : "http";
-  const id = (await getSession()).id;
 
-  const profile: IProfileReponse = await (
-    await fetch(`${protocol}://${host}/api/user?id=${id}`)
-  ).json();
   const posts: IPostsReponse = await (
     await fetch(`${protocol}://${host}/api/posts`)
   ).json();
-
-  console.log(profile);
 
   return (
     <main className="flex flex-col items-center m-auto px-5">
