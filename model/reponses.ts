@@ -1,4 +1,4 @@
-import { IPostFireStore } from "./post";
+import { IPostFireStore, IPostWithCommentsFireStore } from "./post";
 import { IAvatar, IProfile } from "./profile";
 
 interface IPost {
@@ -13,6 +13,11 @@ interface IPost {
 export interface IPostsReponse {
   status: number;
   posts: IPost[];
+}
+
+export interface IPostReponse {
+  status: number;
+  post: IPostWithCommentsFireStore;
 }
 
 export interface IProfileReponse {

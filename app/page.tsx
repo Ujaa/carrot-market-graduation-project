@@ -6,6 +6,7 @@ import getSession from "@/lib/session";
 import Input from "@/components/input";
 import FormButton from "@/components/form-button";
 import CreatePostForm from "@/components/create-post-form";
+import Link from "next/link";
 
 export default async function Home() {
   const host = headers().get("host");
@@ -40,17 +41,22 @@ export default async function Home() {
               >
                 {post.content}
               </p>
-              <div className="peer w-96 h-96 flex flex-col gap-4 items-center justify-end">
-                <Avatar
-                  bodyType={post.profile.avatar.bodyType}
-                  eyeType={post.profile.avatar.eyeType}
-                  eyeColor={post.profile.avatar.eyeColor}
-                  size={200}
-                />
-                <p className="text-lg text-slate-500">
-                  {post.profile.username}
-                </p>
-              </div>
+              <Link
+                href={`/tweet/${post.id}`}
+                className="text-base font-bold text-pink-500"
+              >
+                <div className="peer w-96 h-96 flex flex-col gap-4 items-center justify-end">
+                  <Avatar
+                    bodyType={post.profile.avatar.bodyType}
+                    eyeType={post.profile.avatar.eyeType}
+                    eyeColor={post.profile.avatar.eyeColor}
+                    size={200}
+                  />
+                  <p className="text-lg text-slate-500">
+                    {post.profile.username}
+                  </p>
+                </div>
+              </Link>
             </li>
           );
         })}
