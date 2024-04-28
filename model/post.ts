@@ -1,4 +1,5 @@
 import { DocumentSnapshot, QueryDocumentSnapshot } from "firebase/firestore";
+import { IAvatar } from "./profile";
 
 export interface IPostFireStore {
   id?: string;
@@ -8,7 +9,7 @@ export interface IPostFireStore {
   updatedAt: number;
 }
 
-export interface IComments {
+export interface IComment {
   id: string;
   userId: number;
   content: string;
@@ -16,12 +17,32 @@ export interface IComments {
   updatedAt: number;
 }
 
-export interface IPostWithCommentsFireStore extends IPostFireStore {
-  comments: IComments[];
+export interface ILike {
+  id: string;
+  userId: string;
+  avatar: IAvatar;
+  createdAt: number;
 }
 
+export interface IPostWithCommentsFireStore extends IPostFireStore {
+  comments: IComment[];
+}
+
+export const likeConverter = {
+  fromFirestore: (snapshot: QueryDocumentSnapshot): ILike => {
+    const id = snapshot.id;
+    const data = snapshot.data();
+    return {
+      id,
+      avatar: data.avatar,
+      userId: data.userId,
+      createdAt: data.createdAt,
+    };
+  },
+};
+
 export const commentConverter = {
-  fromFirestore: (snapshot: QueryDocumentSnapshot): IComments => {
+  fromFirestore: (snapshot: QueryDocumentSnapshot): IComment => {
     const id = snapshot.id;
     const data = snapshot.data();
     return {
@@ -45,7 +66,7 @@ export const postConverter = {
   },
   fromFirestoreWithComments: (
     snapshot: DocumentSnapshot,
-    comments: IComments[]
+    comments: IComment[]
   ): IPostWithCommentsFireStore => {
     const id = snapshot.id;
     const data = snapshot.data();

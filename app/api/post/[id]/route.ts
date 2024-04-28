@@ -35,7 +35,7 @@ export async function GET(request: NextRequest, { params }: PostParams) {
     const post = postConverter.fromFirestoreWithComments(postDocSnap, comments);
     return NextResponse.json({ status: 200, post });
   } catch (error) {
-    console.error("[ERROR] Error white fetching posts: ", error);
+    console.error("[ERROR] Error white fetching post: ", error);
     return NextResponse.json({ status: 500 });
   }
 }
