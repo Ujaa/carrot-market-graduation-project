@@ -12,6 +12,7 @@ export const COLLECTION_NAME_PROFILE = "profiles";
 export const USERNAME_MIN_LENGTH = 3;
 export const USERNAME_MAX_LENGTH = 10;
 export const PASSWORD_MIN_LENGTH = 10;
+export const POST_MIN_LENGTH = 5;
 
 /**
  * Regex
@@ -42,6 +43,8 @@ export class ErrorMessages {
     "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character";
   static PASSWORD_CONFIRM_ERROR = "Password do not match";
   static PASSWORD_WRONG_ERROR = "Wrong password";
+
+  static POST_MIN_LENGTH_ERROR = `The content should be at least ${POST_MIN_LENGTH} characters`;
 }
 
 /**

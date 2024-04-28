@@ -6,13 +6,24 @@ import {
 import { postConverter } from "@/model/post";
 import { profileConverter } from "@/model/profile";
 import { IPostsReponse } from "@/model/reponses";
-import { collection, getDoc, getDocs, doc } from "firebase/firestore";
+import {
+  collection,
+  getDoc,
+  getDocs,
+  doc,
+  query,
+  orderBy,
+  Query,
+} from "firebase/firestore";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
   try {
     const postsDocSnap = await getDocs(
-      collection(firestore, COLLECTION_NAME_POSTS)
+      query(
+        collection(firestore, COLLECTION_NAME_POSTS),
+        orderBy("createdAt", "desc")
+      )
     );
     const posts = [];
 

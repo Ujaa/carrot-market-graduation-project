@@ -4,6 +4,7 @@ import {
   ErrorMessages,
   PASSWORD_MIN_LENGTH,
   PASSWORD_REGEX,
+  POST_MIN_LENGTH,
   USERNAME_MAX_LENGTH,
   USERNAME_MIN_LENGTH,
 } from "./constants";
@@ -129,3 +130,8 @@ export const usernameSchema = z
   .max(USERNAME_MAX_LENGTH, ErrorMessages.USERNAME_MAX_LENGTH_ERROR)
   .toLowerCase()
   .refine(checkUniqueUsername, ErrorMessages.USERNAME_UNIQUE_ERROR);
+
+export const postSchema = z
+  .string()
+  .min(POST_MIN_LENGTH, ErrorMessages.POST_MIN_LENGTH_ERROR)
+  .trim();
