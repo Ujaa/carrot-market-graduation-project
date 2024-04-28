@@ -8,6 +8,7 @@ import { COLLECTION_NAME_PROFILE } from "@/lib/constants";
 import Avatar from "./avatar";
 import { headers } from "next/headers";
 import { IProfileReponse } from "@/model/reponses";
+import HeaderAvatar from "./header-avatar";
 
 const logOut = async () => {
   "use server";
@@ -40,14 +41,11 @@ export async function Header() {
           </button>
         </form>
         <Link href={"/profile"}>
-          <div className="bg-slate-50 w-9 h-9 rounded-full">
-            <Avatar
-              bodyType={json.profile.avatar.bodyType}
-              eyeType={json.profile.avatar.eyeType}
-              eyeColor={json.profile.avatar.eyeColor}
-              size={24}
-            />
-          </div>
+          <HeaderAvatar
+            bodyType={json.profile.avatar.bodyType}
+            eyeType={json.profile.avatar.eyeType}
+            eyeColor={json.profile.avatar.eyeColor}
+          />
         </Link>
       </div>
     </header>

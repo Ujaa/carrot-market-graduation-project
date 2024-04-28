@@ -16,15 +16,24 @@ export default async function PostDetail({ params: { id } }: PostDetailParams) {
   const json: IPostReponse = await result.json();
 
   return (
-    <div>
+    <div className="w-screen h-screen ">
       <Header />
-      <p>{json.post.content}</p>
-      <ul>
-        {json.post.comments.map((comment) => (
-          <li key={comment.id}>{comment.content}</li>
-        ))}
-      </ul>
-      <button>heart</button>
+      <div className="w-full h-full flex flex-col items-center justify-center">
+        <p
+          className="text-2xl w-96 max-h-80 break-words bg-slate-50 text-darkblue 
+              p-6 rounded-2xl transition-all text-ellipsis overflow-y-scroll "
+        >
+          {json.post.content}
+        </p>
+        <button>heart</button>
+        <ul>
+          {json.post.comments.map((comment) => (
+            <li className="text-darkblue text-xl" key={comment.id}>
+              {comment.content}
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }
