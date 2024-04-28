@@ -1,3 +1,4 @@
+import { Header } from "@/components/header";
 import { IPostReponse } from "@/model/reponses";
 import { headers } from "next/headers";
 import useSWR from "swr";
@@ -16,6 +17,7 @@ export default async function PostDetail({ params: { id } }: PostDetailParams) {
 
   return (
     <div>
+      <Header />
       <p>{json.post.content}</p>
       <ul>
         {json.post.comments.map((comment) => (
