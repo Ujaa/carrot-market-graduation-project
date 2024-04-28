@@ -97,10 +97,10 @@ export default async function PostDetail({ params: { id } }: PostDetailParams) {
           {postData.post.content}
         </p>
 
-        <ul>
+        <ul className="mt-4">
           {likesData.likes.map((like) => (
-            <li className="text-darkblue text-xl" key={like.id}>
-              {like.userId}
+            <li className="text-darkblue text-sm" key={like.id}>
+              The user with userId {like.userId} liked this post
             </li>
           ))}
         </ul>
