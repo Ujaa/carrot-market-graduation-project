@@ -5,6 +5,7 @@ import { Header } from "@/components/header";
 import getSession from "@/lib/session";
 import Input from "@/components/input";
 import FormButton from "@/components/form-button";
+import CreatePostForm from "@/components/create-post-form";
 
 export default async function Home() {
   const host = headers().get("host");
@@ -24,17 +25,7 @@ export default async function Home() {
     <main className="flex flex-col items-center m-auto px-5">
       <Header />
       <ul className="max-w-7xl grid gap-x-4 gap-y-28 py-40 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 ">
-        <form className="w-112 h-full flex flex-col items-center gap-4 ">
-          <textarea
-            className="w-full h-full text-2xl bg-slate-50 text-darkblue 
-              p-6 rounded-2xl overflow-y-scroll focus:outline-none placeholder:text-slate-400"
-            name="opinion"
-            form="myForm"
-            rows={6}
-            placeholder="Share your stories..."
-          ></textarea>
-          <FormButton text="Post"></FormButton>
-        </form>
+        <CreatePostForm />
         {posts.posts.map((post) => {
           return (
             <li
