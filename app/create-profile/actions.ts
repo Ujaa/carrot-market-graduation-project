@@ -30,10 +30,9 @@ export async function createProfile(
         createdAt: Date.now(),
         updatedAt: Date.now(),
       });
-
-      redirect("/");
     } catch (error) {
       console.error("[ERROR] Error while creating Profile: ", error);
     }
+    redirect("/");
   }
 }
