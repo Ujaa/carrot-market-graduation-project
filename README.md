@@ -2,7 +2,7 @@
 ## Deploy on Vercel
 https://praise-box.vercel.app/
 
-## Getting Started
+## Screens
 ![image](https://github.com/Ujaa/carrot-market-graduation-project/assets/40076944/44044073-d880-4921-900b-5efe8cdf6d20)
 ![image](https://github.com/Ujaa/carrot-market-graduation-project/assets/40076944/2d5b6e63-67e9-411e-a757-c095f509cb05)
 ![image](https://github.com/Ujaa/carrot-market-graduation-project/assets/40076944/274aeb57-d48e-40e5-8c8d-8eed6edbceab)
