@@ -1,6 +1,11 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
+![image](https://github.com/Ujaa/carrot-market-graduation-project/assets/40076944/44044073-d880-4921-900b-5efe8cdf6d20)
+![image](https://github.com/Ujaa/carrot-market-graduation-project/assets/40076944/2d5b6e63-67e9-411e-a757-c095f509cb05)
+![image](https://github.com/Ujaa/carrot-market-graduation-project/assets/40076944/274aeb57-d48e-40e5-8c8d-8eed6edbceab)
+![image](https://github.com/Ujaa/carrot-market-graduation-project/assets/40076944/c9789c21-c7c6-4074-9215-dab9ad9d65d4)
+![image](https://github.com/Ujaa/carrot-market-graduation-project/assets/40076944/aec9f125-e8a2-43d0-9faa-14fab73fbb52)
 
 First, run the development server:
 
