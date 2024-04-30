@@ -1,5 +1,5 @@
 
-## Deploy on Vercel
+## Link
 https://praise-box.vercel.app/
 
 ## Screens
