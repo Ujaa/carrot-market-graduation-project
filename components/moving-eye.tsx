@@ -27,9 +27,9 @@ export function MovingEye({
           eyeRef.current.getBoundingClientRect().top +
           eyeRef.current.clientHeight / 2;
 
-        let radian = Math.atan2(event.pageX - x, event.pageY - y);
-        let rotation = radian * (180 / Math.PI) * -1 + 270;
-        setEyeRotation(rotation);
+        const radian = Math.atan2(event.clientY - y, event.clientX - x);
+        const degree = radian * (180 / Math.PI);
+        setEyeRotation(degree);
       }
     };
 
@@ -49,7 +49,7 @@ export function MovingEye({
           width: `${size}rem`,
           height: `${size}rem`,
         }}
-        className={`p-1 overflow-hidden bg-white rounded-full flex flex-col justify-center`}
+        className={`p-1 overflow-hidden bg-white rounded-full flex flex-col justify-center items-end`}
       >
         <div
           style={{
